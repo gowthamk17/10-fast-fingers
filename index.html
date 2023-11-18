@@ -8,13 +8,17 @@
 </head>
 <body>
 
-    <div class="words_container">
-        Hello World
-    </div>
-    <div class="user_input_container">
-        <input type="text" name="word-input" id="word_input">
-        <div class="timer">1:00</div>
-        <button class="refresh">Refresh</button>
+    <div class="app_container">
+        <div class="words_container" id="words_container">
+        </div>
+        <div class="user_input_container">
+            <textarea name="word_input" id="word_input" class="word_input" autofocus></textarea>
+            <div class="options_container">
+                <div class="timer" id="timer">1:00</div>
+                <button class="refresh" id="refresh">Refresh</button>
+            </div>
+        </div>
+        <div class="result"></div>
     </div>
 
     <script src="./main.js"></script>
