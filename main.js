@@ -20,25 +20,27 @@ userInput.addEventListener('input', () => {
 
     const quoteArr = quoteContainer.querySelectorAll('span')
     const inputArr = userInput.value.split('')
-    let allCorrect = true
     quoteArr.forEach((charSpan, index) => {
         const character = inputArr[index]
         if (character == null) {
             charSpan.classList.remove('correct')
             charSpan.classList.remove('incorrect')
-            allCorrect = false
         } else if (character == charSpan.innerText) {
             charSpan.classList.add('correct')
             charSpan.classList.remove('incorrect')
         } else {
             charSpan.classList.remove('correct')
             charSpan.classList.add('incorrect')
-            allCorrect = false
         }
     })
-    if (allCorrect && quoteArr.length > 0) {
+    if (inputArr.length > quoteArr.length) {
         // after completed quote adding character count
-        charCount += inputArr.length
+        quoteArr.forEach((charSpan, index) => {
+            const character = inputArr[index]
+            if (character == charSpan.innerText && character != ' ') {
+                charCount++
+            }
+        })
         renderQuote()
     }
 })
@@ -61,10 +63,14 @@ function startTimer() {
             timeoutId = null
             startTime = null
             timer.textContent = '1:00'
-            let wpm = charCount / 7
+            let wpm = Math.floor(charCount / 6)
             result.innerText = `Your typing speed is ${wpm} WPM`
             console.log(`Your typing speed is ${wpm} WPM`)
-            userInput.foc
+            userInput.readOnly = true
+            setTimeout(() => {
+                userInput.readOnly = false
+                renderQuote()
+            }, 5000);
         }
     }, 1000);
 }
